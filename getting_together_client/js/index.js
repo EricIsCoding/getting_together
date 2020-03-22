@@ -59,11 +59,15 @@ class EventsPage {
         this.events = events
     }
 
-    render() {
-        console.log(this.events)
+    renderCards() {
+        return this.events.map(event => {
+            return event.renderCard()
+          }).join('')
     }
 
-
+    render() {
+        console.log(this.renderCards())
+    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
