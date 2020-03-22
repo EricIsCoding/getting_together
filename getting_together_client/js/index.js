@@ -39,5 +39,16 @@ class Event {
 
 Event.all = []
 
+document.addEventListener('DOMContentLoaded', () => {
+    EventAPI.getEvents().then(events => {
+        let root = document.getElementById('root')
+        events.forEach(event => {
+            new Event(event).save()
+            console.log(Event.all)
+        });
+    })
+})
+
+
 
 EventAPI.base_url = "http://localhost:3000"
