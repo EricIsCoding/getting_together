@@ -65,14 +65,16 @@ class EventsPage {
           }).join('')
     }
 
-    render() {
-        console.log(this.renderCards())
+    renderPage( ) {
+        root.innerHTML = `<h2>Getting Together</h2>
+        ${this.renderCards()}`
     }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+    let root = document.getElementById('root')
     Event.getAll().then(events => { 
-        new EventsPage(events).render() })
+        root.innerHtml = new EventsPage(events).renderPage() })
 })
 
 EventAPI.base_url = "http://localhost:3000"
