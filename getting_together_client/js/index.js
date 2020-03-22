@@ -14,6 +14,20 @@ class Event {
         this.time = event.time
     }
 
+    static getAll() {
+        if(Event.all.length === 0) {
+            return EventAPI.getEvents().then(events => {
+                let root = document.getElementById('root')
+                Event.all = events.map(event => {
+                    return new Event(event)
+                });
+                return Event.all
+            })
+        } else {
+            return Promise,resolve(Event.all)
+        }
+    }
+
     save() {
         Event.all.push(this)
         return this
@@ -40,15 +54,7 @@ class Event {
 Event.all = []
 
 document.addEventListener('DOMContentLoaded', () => {
-    EventAPI.getEvents().then(events => {
-        let root = document.getElementById('root')
-        events.forEach(event => {
-            new Event(event).save()
-            console.log(Event.all)
-        });
-    })
+    Event.getAll().then(events => { console.log(events) })
 })
-
-
 
 EventAPI.base_url = "http://localhost:3000"
