@@ -14,6 +14,11 @@ class Event {
         this.time = event.time
     }
 
+    save() {
+        Event.all.push(this)
+        return this
+    }
+
     renderCard() {
         return `<article class="center mw5 mw6-ns hidden ba mv4">
         <h1 class="f4 bg-near-black white mv0 pv2 ph3">${this.title}</h1>
@@ -31,6 +36,8 @@ class Event {
     }
 
 } 
+
+Event.all = []
 
 
 EventAPI.base_url = "http://localhost:3000"
