@@ -53,8 +53,22 @@ class Event {
 
 Event.all = []
 
+
+class EventsPage {
+    constructor(events) {
+        this.events = events
+    }
+
+    render() {
+        console.log(this.events)
+    }
+
+
+}
+
 document.addEventListener('DOMContentLoaded', () => {
-    Event.getAll().then(events => { console.log(events) })
+    Event.getAll().then(events => { 
+        new EventsPage(events).render() })
 })
 
 EventAPI.base_url = "http://localhost:3000"
