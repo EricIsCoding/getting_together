@@ -4,4 +4,17 @@ class EventAPI {
     }
 }
 
+class Event {
+    constructor(event) {
+        this.id = event.id,
+        this.title = event.title, 
+        this.description = event.description, 
+        this.service = event.service, 
+        this.date = event.date, 
+        this.time = event.time
+    }
+
+} 
+
+
 EventAPI.base_url = "http://localhost:3000"
