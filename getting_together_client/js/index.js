@@ -28,10 +28,16 @@ class Event {
         }
     }
 
+    static findById(id) {
+        return Event.all.find(event => event.id == id)
+    }
+
     save() {
         Event.all.push(this)
         return this
     }
+
+
 
     renderCard() {
         return `<article class="center mw5 mw6-ns hidden ba mv4">
