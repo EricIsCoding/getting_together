@@ -27,12 +27,13 @@ class EventAPI {
                 service,
                 date,
                 time,
-                responses: included.map(({id, attributes: {respondent, content, attending}}) => {
+                responses: included.map(({id, attributes: {respondent, content, attending, event_id}}) => {
                     return {
                     id,
                     respondent,
                     content,
-                    attending
+                    attending, 
+                    event_id
                     }
                 })
             }
@@ -85,7 +86,7 @@ class Event {
           Time: ${this.time} </br>
           </p>
         </div>
-        <p><a href="/events/${this.id}" class="eventsShow ba1 pa2 bg-moon-gray link" data-eventid="${this.id}">RSVP</a></p>
+        <p><a href="/events/${this.id}" class="eventsShow ba1 pa2 bg-moon-gray link" data-eventId="${this.id}">RSVP</a></p>
       </article>
       `
     }
@@ -93,6 +94,22 @@ class Event {
 } 
 
 Event.all = []
+
+class Response {
+    constructor({respondent, content, attending, event_id}) {
+        this.respondent = respondent,
+        this.content = content,
+        this.attending = attending,
+        this.eventId = event_id
+    }
+
+    save() {
+        Response.all.push(this)
+        return this
+    }
+}
+
+Response.all = []
 
 
 class EventsPage {
@@ -122,7 +139,6 @@ class EventsShowPage {
         console.log(this.event)
     }
 }
-
 
 document.addEventListener('DOMContentLoaded', () => {
     let root = document.getElementById('root')
