@@ -221,4 +221,9 @@ document.addEventListener('DOMContentLoaded', () => {
             root.innerHTML = new EventsShowPage(event).render()
         })
     }
+    if(e.target.matches('.home')) {
+        Event.getAll().then(events => { 
+            root.innerHtml = new EventsPage(events).renderPage() 
+        })
+    }
   })
