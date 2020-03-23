@@ -64,15 +64,16 @@ class Event {
                 return Event.all
             })
         } else {
-            return Promise,resolve(Event.all)
+            return Promise.resolve(Event.all)
         }
     }
 
     static findById(id) {
         return Event.all.find(event => event.id == id)
     }
+    
     responses() {
-        return Response.all.filter(resp => resp.id == this.id)
+        return Response.all.filter(resp => resp.eventId == this.id)
     }
 
     save() {
@@ -91,17 +92,18 @@ class Event {
           Time: ${this.time} </br>
           </p>
         </div>
-        <p><a href="/events/${this.id}" class="eventsShow ba1 pa2 bg-moon-gray link" data-eventId="${this.id}">RSVP</a></p>
+        <p><a href="#/events/${this.id}" class="eventsShow ba1 pa2 bg-moon-gray link" data-eventId="${this.id}">RSVP</a></p>
       </article>
       `
     }
 
 } 
-
+ 
 Event.all = []
 
 class Response {
-    constructor({respondent, content, attending, event_id}) {
+    constructor({id, respondent, content, attending, event_id}) {
+        this.id = id,
         this.respondent = respondent,
         this.content = content,
         this.attending = attending,
@@ -143,7 +145,19 @@ class EventsShowPage {
     }
 
     render() {
-        console.log(this.event)
+        return `
+        <article class="center mw5 mw6-ns hidden ba mv4">
+        <h1 class="f4 bg-near-black white mv0 pv2 ph3">${this.event.title}</h1>
+        <div class="pa3 bt">
+          <p class="f6 f5-ns lh-copy measure mv0">
+          Description: ${this.event.description} </br>
+          Service: ${this.event.service} </br>
+          Date: ${this.event.date} </br>
+          Time: ${this.event.time} </br>
+          # of Responses: ${this.event.responses().length} </br>
+          </p>
+          </div>
+          `
     }
 }
 
@@ -152,10 +166,8 @@ document.addEventListener('DOMContentLoaded', () => {
     Event.getAll().then(events => { 
         root.innerHtml = new EventsPage(events).renderPage() })
 })
-
-document.addEventListener('click', (e) => {
-    e.preventDefault()
+    document.addEventListener('click', (e) => {
     if(e.target.matches('.eventsShow')) {
         alert('This is an event!')
     }
-})
+  })
