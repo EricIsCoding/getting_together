@@ -137,17 +137,19 @@ class Response {
 
     renderRespCard() {
         return `
-        <article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
+        <div class="fl w-50 w-25-m w-20-l pa2">
+          <article class="db mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
             <div class="tc">
                 <h1 class="f4">${this.respondent}</h1>
                 <hr class="mw3 bb bw1 b--black-10"/>
             </div>
-            <h3>Attending?</h3>
+            <h6>Attending?</h6>
             <p>${true ? 'yes' : 'no'}</p>
             <p class="lh-copy measure center f6 black-70">
             ${this.content}
             </p>
-        </article>
+          </article>  
+        </div>
         `
     }
 }
@@ -168,7 +170,7 @@ class EventsPage {
     }
 
     renderPage( ) {
-        root.innerHTML = `<h2>Getting Together</h2>
+        root.innerHTML = `
         ${this.renderCards()}`
     }
 }
@@ -177,6 +179,12 @@ class EventsPage {
 class EventsShowPage {
     constructor(event) {
         this.event = event
+    }
+
+    renderResponseList() {
+        return this.event.responses().map(resp => {
+            return resp.renderRespCard()
+        }).join(" ")
     }
 
     render() {
@@ -192,7 +200,12 @@ class EventsShowPage {
           # of Responses: ${this.event.responses().length} </br>
           </p>
           </div>
-          `
+          </article>
+          <article>
+          <div class="cf pa2">
+            ${this.renderResponseList()}
+          </div>
+          </article>`
     }
 }
 
