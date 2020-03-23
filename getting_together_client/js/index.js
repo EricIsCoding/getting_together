@@ -1,6 +1,43 @@
 class EventAPI {
     static getEvents() {
-        return fetch(`${EventAPI.base_url}/events`).then(res => {return res.json()} )
+        return fetch(`${EventAPI.base_url}/events`).then( res => {return res.json() } )
+    }
+
+    static getEventShow(eventId) {
+        return fetch(`${EventAPI.base_url}/events/${eventId}`)
+        .then(res =>  res.json() )
+        .then(json => {
+        const { 
+            data: {  
+                id,
+                attributes: {
+                title, 
+                description, 
+                service,
+                date,
+                time
+                }
+            },
+            included
+            } = json
+            return {
+                id,
+                title,
+                description,
+                service,
+                date,
+                time,
+                responses: included.map(({id, attributes: {respondent, content, attending}}) => {
+                    return {
+                    id,
+                    respondent,
+                    content,
+                    attending
+                    }
+                })
+            }
+            
+        })
     }
 }
 
@@ -36,8 +73,6 @@ class Event {
         Event.all.push(this)
         return this
     }
-
-
 
     renderCard() {
         return `<article class="center mw5 mw6-ns hidden ba mv4">
