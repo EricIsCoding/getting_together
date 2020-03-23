@@ -203,6 +203,9 @@ document.addEventListener('DOMContentLoaded', () => {
 })
     document.addEventListener('click', (e) => {
     if(e.target.matches('.eventsShow')) {
-        alert('This is an event!')
+        let event = Event.findById(e.target.dataset.eventid)
+        event.getEventInfo().then(event => {
+            root.innerHTML = new EventsShowPage(event).render()
+        })
     }
   })
