@@ -10,7 +10,10 @@ class EventsController < ApplicationController
 
   # GET /events/1
   def show
-    render json: @event
+    options = {
+      include: [:responses, :'responses.respondent', :'responses.content', :'responses.attending']
+    }
+    render json: EventSerializer.new(@event, options).serialized_json
   end
 
   # POST /events

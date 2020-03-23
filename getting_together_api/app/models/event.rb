@@ -1,3 +1,3 @@
 class Event < ApplicationRecord
-    has_many :comments, :dependent => :delete_all
+    has_many :responses, :dependent => :delete_all
 end
