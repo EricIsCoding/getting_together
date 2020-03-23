@@ -70,6 +70,10 @@ class Event {
         return Event.all.find(event => event.id == id)
     }
 
+    responses() {
+        return Response.all.filter(resp => resp.id == this.id)
+    }
+
     save() {
         Event.all.push(this)
         return this
