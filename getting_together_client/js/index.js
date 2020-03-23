@@ -68,6 +68,21 @@ class Event {
         }
     }
 
+    getEventInfo() {
+        if(this.responses().length === 0) {
+            return EventAPI.getEventShow(this.id)
+                .then((e) => {
+                    e.responses.forEach(resp => {
+                        Response.findOrCreateBy(resp)
+                    });
+                    return this
+                })
+        } else {
+                return Promise.resolve(this)
+        }
+    }
+    
+
     static findById(id) {
         return Event.all.find(event => event.id == id)
     }
@@ -108,6 +123,11 @@ class Response {
         this.content = content,
         this.attending = attending,
         this.eventId = event_id
+    }
+
+    static findOrCreateBy(attr) {
+        let response = Response.all.find(resp => resp.eventId == attr.eventId)
+        return response ? response : new Response(attr).save()
     }
 
     save() {
