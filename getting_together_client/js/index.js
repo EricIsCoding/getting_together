@@ -135,6 +135,21 @@ class Response {
         return this
     }
 
+    renderRespCard() {
+        return `
+        <article class="mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
+            <div class="tc">
+                <h1 class="f4">${this.respondent}</h1>
+                <hr class="mw3 bb bw1 b--black-10"/>
+            </div>
+            <h3>Attending?</h3>
+            <p>${true ? 'yes' : 'no'}</p>
+            <p class="lh-copy measure center f6 black-70">
+            ${this.content}
+            </p>
+        </article>
+        `
+    }
 }
 
 
