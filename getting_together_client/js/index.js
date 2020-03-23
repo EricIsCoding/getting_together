@@ -42,6 +42,8 @@ class EventAPI {
     }
 }
 
+EventAPI.base_url = "http://localhost:3000"
+
 class Event {
     constructor(event) {
         this.id = event.id,
@@ -69,7 +71,6 @@ class Event {
     static findById(id) {
         return Event.all.find(event => event.id == id)
     }
-
     responses() {
         return Response.all.filter(resp => resp.id == this.id)
     }
@@ -111,7 +112,9 @@ class Response {
         Response.all.push(this)
         return this
     }
+
 }
+
 
 Response.all = []
 
@@ -150,4 +153,9 @@ document.addEventListener('DOMContentLoaded', () => {
         root.innerHtml = new EventsPage(events).renderPage() })
 })
 
-EventAPI.base_url = "http://localhost:3000"
+document.addEventListener('click', (e) => {
+    e.preventDefault()
+    if(e.target.matches('.eventsShow')) {
+        alert('This is an event!')
+    }
+})
