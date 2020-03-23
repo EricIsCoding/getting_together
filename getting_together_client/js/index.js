@@ -77,6 +77,18 @@ class EventsPage {
     }
 }
 
+
+class EventsShowPage {
+    constructor(event) {
+        this.event = event
+    }
+
+    render() {
+        console.log(this.event)
+    }
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
     let root = document.getElementById('root')
     Event.getAll().then(events => { 
