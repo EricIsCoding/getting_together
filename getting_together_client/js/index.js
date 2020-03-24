@@ -284,6 +284,40 @@ class EventsShowPage {
         `
     }
 
+    
+    renderEventCard() {
+        return `
+        <article class="center mw5 mw6-ns hidden ba mv4">
+        <h1 class="f4 bg-near-black white mv0 pv2 ph3">${this.event.title}</h1>
+        <div class="pa3 bt">
+            <p class="f6 f5-ns lh-copy measure mv0">
+                Description: ${this.event.description} </br>
+                Service: ${this.event.service} </br>
+                Date: ${this.event.date} </br>
+                Time: ${this.event.time} </br>
+                # of Responses: ${this.event.responses().length} </br>
+            </p>
+          </div>
+          </article>`
+    }
+
+    renderAddResponse() {
+        return `
+        ${this.renderShowNav()}
+        ${Response.renderResponseForm(this.event.id)}
+        ${this.renderEventCard()}
+        ${this.renderResponseList()}
+    `
+    }
+
+    renderShowPage() {
+        return `
+            ${this.renderShowNav()}
+            ${this.renderEventCard()}
+            ${this.renderResponseList()}
+        `
+    }
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
