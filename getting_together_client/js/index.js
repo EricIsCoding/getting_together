@@ -97,7 +97,8 @@ class Event {
     }
 
     renderCard() {
-        return `<article class="center mw5 mw6-ns hidden ba mv4">
+        return `
+        <article class="center mw5 mw6-ns hidden ba mv4">
         <h1 class="f4 bg-near-black white mv0 pv2 ph3">${this.title}</h1>
         <div class="pa3 bt">
           <p class="f6 f5-ns lh-copy measure mv0">
@@ -163,14 +164,57 @@ class EventsPage {
         this.events = events
     }
 
+    renderForm() {
+        return ` <form action="" class="createEvent">
+    <div>
+        <label>Title:</label>
+        <input type="text" name="title" id="title">
+    </div>  
+    <div>
+        <label>Description:</label>
+        <input type="text" name="description" id="description">
+    </div>  
+    <div>
+        <label>Service:</label>
+        <input type="text" name="service" id="service">
+    </div>  
+    <div>
+        <label>Date:</label>
+        <input type="text" name="date" id="date">
+    </div>  
+    <div>
+        <label>Time:</label>
+        <input type="text" name="time" id="time">
+    </div>
+    <input type="submit" value="Create Event" class="createEvent">
+</form>
+        `
+    }
+
     renderCards() {
         return this.events.map(event => {
             return event.renderCard()
           }).join('')
     }
 
-    renderPage( ) {
-        root.innerHTML = `
+    indexNav() {
+        return ` <nav class="ph4">
+        <a href="#/home" class="home">Home</a>
+        <a href="#/create_event" class="addEvent">Add Event</a>
+        </nav>`
+    }
+
+    renderFormPage() {
+        return `
+        ${this.indexNav()}
+        ${this.renderForm()}
+        ${this.renderCards()}
+        `
+    } 
+
+    renderPage() {
+        return  `
+        ${this.indexNav()}
         ${this.renderCards()}`
     }
 }
@@ -187,8 +231,18 @@ class EventsShowPage {
         }).join(" ")
     }
 
+    showNav() {
+        return `
+        <nav class="ph4">
+        <a href="#/home" class="home">Home</a>
+        <a href="#/add_response" class="addResponse" data-eventId="${this.event.id}">Add Response</a>
+        </nav>
+        `
+    }
+
     render() {
         return `
+        ${this.showNav()}
         <article class="center mw5 mw6-ns hidden ba mv4">
         <h1 class="f4 bg-near-black white mv0 pv2 ph3">${this.event.title}</h1>
         <div class="pa3 bt">
@@ -212,8 +266,8 @@ class EventsShowPage {
 document.addEventListener('DOMContentLoaded', () => {
     let root = document.getElementById('root')
     Event.getAll().then(events => { 
-        root.innerHtml = new EventsPage(events).renderPage() })
-})
+       root.innerHTML = new EventsPage(events).renderPage()
+    })
     document.addEventListener('click', (e) => {
     if(e.target.matches('.eventsShow')) {
         let event = Event.findById(e.target.dataset.eventid)
@@ -222,8 +276,18 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
     if(e.target.matches('.home')) {
+        root.innerHTML = new EventsPage(Event.all).renderPage()
+    }
+    if(e.target.matches('.addEvent')) {
+        Event.getAll().then(events => { 
+            debugger
+            root.innerHTML = new EventsPage(events).renderFormPage()
+        })
+    }
+    if(e.target.matches('.addResponse')) {
         Event.getAll().then(events => { 
             root.innerHtml = new EventsPage(events).renderPage() 
         })
     }
   })
+})
