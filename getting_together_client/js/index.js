@@ -280,7 +280,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     if(e.target.matches('.addEvent')) {
         Event.getAll().then(events => { 
-            debugger
             root.innerHTML = new EventsPage(events).renderFormPage()
         })
     }
@@ -290,4 +289,14 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
   })
+  document.addEventListener('submit', e => {
+    e.preventDefault()
+    debugger;
+    if(e.target.matches('.createEvent')) {
+        let formData = {}
+        e.target.querySelectorAll('input[type="text"]').forEach( input => {
+            formData[input.id] = input.value
+        })
+    }
+})
 })
