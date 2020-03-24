@@ -1,6 +1,6 @@
 class EventAPI {
     static getEvents() {
-        return fetch(`${EventAPI.base_url}/events`).then( res => {return res.json() } )
+        return fetch(`${EventAPI.base_url}/events`).then( res => res.json()  )
     }
 
     static getEventShow(eventId) {
@@ -39,6 +39,16 @@ class EventAPI {
             }
             
         })
+    }
+    static createEvent(eventAttr) {
+        return fetch(`${EventAPI.base_url}/events`, {
+            method: "POST", 
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(eventAttr)
+        }).then( res =>  res.json() )
     }
 }
 
@@ -137,6 +147,27 @@ class Response {
         return response ? response : new Response(attr).save()
     }
 
+    static renderResponseForm(eventId) {
+        return `
+        <form action="" class="createResponse" >
+            <input type="hidden" id="event_id" value="${eventId}">
+            <div>
+                <label>Your Name:</label>
+                <input type="text" name="respondent" id="respondent">
+            </div>  
+            <div>
+                <label>Your Message:</label>
+                <input type="text" name="content" id="content">
+            </div>  
+            <div>
+                <label>Attending? Check Box if Yes:</label>
+                <input type="checkbox" name="attending" id="attending" value="es">
+            </div>  
+                <input type="submit" value="Create Response" class="createResponse">
+        </form>
+        `
+    }
+
     save() {
         Response.all.push(this)
         return this
@@ -170,7 +201,7 @@ class EventsPage {
         this.events = events
     }
 
-    renderForm() {
+    renderEventForm() {
         return ` <form action="" class="createEvent">
     <div>
         <label>Title:</label>
@@ -213,7 +244,7 @@ class EventsPage {
     renderFormPage() {
         return `
         ${this.indexNav()}
-        ${this.renderForm()}
+        ${this.renderEventForm()}
         ${this.renderCards()}
         `
     } 
@@ -232,19 +263,27 @@ class EventsShowPage {
     }
 
     renderResponseList() {
-        return this.event.responses().map(resp => {
+        let list = this.event.responses().map(resp => {
             return resp.renderRespCard()
         }).join(" ")
+        return `
+        <article>
+            <div class="cf pa2">
+                ${list}
+            </div>
+        </article>
+        `
     }
 
-    showNav() {
+    renderShowNav() {
         return `
         <nav class="ph4">
         <a href="#/home" class="home">Home</a>
-        <a href="#/add_response" class="addResponse" data-eventId="${this.event.id}">Add Response</a>
+        <a href="#/add_response" class="addResponse" data-eventid="${this.event.id}">Add Response</a>
         </nav>
         `
     }
+
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -256,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.target.matches('.eventsShow')) {
         let event = Event.findById(e.target.dataset.eventid)
         event.getEventInfo().then(event => {
-            root.innerHTML = new EventsShowPage(event).render()
+            root.innerHTML = new EventsShowPage(event).renderShowPage()
         })
     }
     if(e.target.matches('.home')) {
@@ -268,8 +307,9 @@ document.addEventListener('DOMContentLoaded', () => {
         })
     }
     if(e.target.matches('.addResponse')) {
-        Event.getAll().then(events => { 
-            root.innerHtml = new EventsPage(events).renderPage() 
+        let event = Event.findById(e.target.dataset.eventid)
+        event.getEventInfo().then(event => {
+            root.innerHTML = new EventsShowPage(event).renderAddResponse()
         })
     }
   })
