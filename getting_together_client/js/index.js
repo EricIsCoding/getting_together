@@ -50,6 +50,17 @@ class EventAPI {
             body: JSON.stringify(eventAttr)
         }).then( res =>  res.json() )
     }
+
+    static createResponse(responseAttr) {
+        return fetch(`${EventAPI.base_url}/responses`, {
+            method: "POST", 
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+            },
+            body: JSON.stringify(responseAttr)
+        }).then( res =>  res.json() )
+    }
 }
 
 EventAPI.base_url = "http://localhost:3000"
@@ -147,6 +158,12 @@ class Response {
         return response ? response : new Response(attr).save()
     }
 
+    static create(respAttr) {
+        return EventAPI.createResponse(respAttr).then(response => {
+            return new Response(response).save()
+        })
+    }
+
     static renderResponseForm(eventId) {
         return `
         <form action="" class="createResponse" >
@@ -166,6 +183,10 @@ class Response {
                 <input type="submit" value="Create Response" class="createResponse">
         </form>
         `
+    }
+
+    event() {
+        return Event.findById(this.eventId)
     }
 
     save() {
@@ -370,6 +391,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     formData['attending'] = false
                 }
             }
+        })
+        Response.create(formData).then( response => {
+            root.innerHTML = new EventsShowPage(response.event()).renderShowPage()
         })
     }
 })
