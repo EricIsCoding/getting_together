@@ -161,7 +161,7 @@ class Response {
             </div>  
             <div>
                 <label>Attending? Check Box if Yes:</label>
-                <input type="checkbox" name="attending" id="attending" value="es">
+                <input type="checkbox" name="attending" id="attending">
             </div>  
                 <input type="submit" value="Create Response" class="createResponse">
         </form>
@@ -356,6 +356,20 @@ document.addEventListener('DOMContentLoaded', () => {
         })
         Event.create(formData).then( event => {
             root.innerHTML = new EventsPage(Event.all).renderPage() 
+        })
+    }
+    if(e.target.matches('.createResponse')) {
+        let formData = {}
+        e.target.querySelectorAll('input').forEach( input => {
+            if (input.value != "Create Response" && input.id != 'attending') {
+                formData[input.id] = input.value
+            } else if (input.id == 'attending') {
+                if (input.checked) {
+                    formData['attending'] = true
+                } else {
+                    formData['attending'] = false
+                }
+            }
         })
     }
 })
