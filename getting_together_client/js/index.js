@@ -68,6 +68,12 @@ class Event {
         }
     }
 
+    static create(eventAttr) {
+        return EventAPI.createEvent(eventAttr).then(event => {
+            return new Event(event).save()
+        })
+    }
+
     getEventInfo() {
         if(this.responses().length === 0) {
             return EventAPI.getEventShow(this.id)
@@ -239,28 +245,6 @@ class EventsShowPage {
         </nav>
         `
     }
-
-    render() {
-        return `
-        ${this.showNav()}
-        <article class="center mw5 mw6-ns hidden ba mv4">
-        <h1 class="f4 bg-near-black white mv0 pv2 ph3">${this.event.title}</h1>
-        <div class="pa3 bt">
-          <p class="f6 f5-ns lh-copy measure mv0">
-          Description: ${this.event.description} </br>
-          Service: ${this.event.service} </br>
-          Date: ${this.event.date} </br>
-          Time: ${this.event.time} </br>
-          # of Responses: ${this.event.responses().length} </br>
-          </p>
-          </div>
-          </article>
-          <article>
-          <div class="cf pa2">
-            ${this.renderResponseList()}
-          </div>
-          </article>`
-    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -291,11 +275,13 @@ document.addEventListener('DOMContentLoaded', () => {
   })
   document.addEventListener('submit', e => {
     e.preventDefault()
-    debugger;
     if(e.target.matches('.createEvent')) {
         let formData = {}
         e.target.querySelectorAll('input[type="text"]').forEach( input => {
             formData[input.id] = input.value
+        })
+        Event.create(formData).then( event => {
+            root.innerHTML = new EventsPage(Event.all).renderPage() 
         })
     }
 })
