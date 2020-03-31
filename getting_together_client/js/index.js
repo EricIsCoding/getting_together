@@ -195,6 +195,7 @@ class Response {
     }
 
     renderRespCard() {
+        let attending = this['attending']
         return `
         <div class="fl w-50 w-25-m w-20-l pa2">
           <article class="db mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
@@ -203,7 +204,7 @@ class Response {
                 <hr class="mw3 bb bw1 b--black-10"/>
             </div>
             <h6>Attending?</h6>
-            <p>${true ? 'yes' : 'no'}</p>
+            <p>${attending ? 'yes' : 'no'}</p>
             <p class="lh-copy measure center f6 black-70">
             ${this.content}
             </p>
@@ -382,6 +383,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if(e.target.matches('.createResponse')) {
         let formData = {}
         e.target.querySelectorAll('input').forEach( input => {
+
             if (input.value != "Create Response" && input.id != 'attending') {
                 formData[input.id] = input.value
             } else if (input.id == 'attending') {
