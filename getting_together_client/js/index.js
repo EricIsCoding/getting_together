@@ -126,7 +126,7 @@ class Event {
     renderCard() {
         return `
         <article class="center mw5 mw6-ns hidden ba mv4">
-        <h1 class="f4 bg-near-black white mv0 pv2 ph3">${this.title}</h1>
+        <h1 class="f4 bg-black-90 white mv0 pv2 ph3">${this.title}</h1>
         <div class="pa3 bt">
           <p class="f6 f5-ns lh-copy measure mv0">
           Description: ${this.description} </br>
@@ -135,7 +135,7 @@ class Event {
           Time: ${this.time} </br>
           </p>
         </div>
-        <p><a href="#/events/${this.id}" class="eventsShow ba1 pa2 bg-moon-gray link" data-eventId="${this.id}">RSVP</a></p>
+        <p><a href="#/events/${this.id}" class="eventsShow ba1 pa2 bg-light-gray link" data-eventId="${this.id}">RSVP</a></p>
       </article>
       `
     }
@@ -198,7 +198,7 @@ class Response {
         let attending = this['attending']
         return `
         <div class="fl w-50 w-25-m w-20-l pa2">
-          <article class="db mw5 center bg-white br3 pa3 pa4-ns mv3 ba b--black-10">
+          <article class="db mw5 center bg-light-gray br3 pa3 pa4-ns mv3 ba b--black-10">
             <div class="tc">
                 <h1 class="f4">${this.respondent}</h1>
                 <hr class="mw3 bb bw1 b--black-10"/>
@@ -257,23 +257,22 @@ class EventsPage {
     }
 
     indexNav() {
-        return ` <nav class="ph4">
-        <a href="#/home" class="home">Home</a>
-        <a href="#/create_event" class="addEvent">Add Event</a>
-        </nav>`
+        let nav = document.querySelector('nav')
+        nav.innerHTML = `<a href="#/home" class="home link dim white dib mr3">Home</a>
+        <a href="#/create_event" class="addEvent link dim white dib mr3">Add Event</a>`
     }
 
     renderFormPage() {
+        this.indexNav()
         return `
-        ${this.indexNav()}
         ${this.renderEventForm()}
         ${this.renderCards()}
         `
     } 
 
     renderPage() {
+        this.indexNav()
         return  `
-        ${this.indexNav()}
         ${this.renderCards()}`
     }
 }
@@ -297,12 +296,10 @@ class EventsShowPage {
         `
     }
 
-    renderShowNav() {
-        return `
-        <nav class="ph4">
-        <a href="#/home" class="home">Home</a>
-        <a href="#/add_response" class="addResponse" data-eventid="${this.event.id}">Add Response</a>
-        </nav>
+    showNav() {
+        let nav = document.querySelector('nav')
+        nav.innerHTML =  `<a href="#/home" class="home link dim white dib mr3">Home</a>
+        <a href="#/add_response" class="addResponse link dim white dib mr3" data-eventid="${this.event.id}">Add Response</a>
         `
     }
 
@@ -310,7 +307,7 @@ class EventsShowPage {
     renderEventCard() {
         return `
         <article class="center mw5 mw6-ns hidden ba mv4">
-        <h1 class="f4 bg-near-black white mv0 pv2 ph3">${this.event.title}</h1>
+        <h1 class="f4 bg-black-90 white mv0 pv2 ph3">${this.event.title}</h1>
         <div class="pa3 bt">
             <p class="f6 f5-ns lh-copy measure mv0">
                 Description: ${this.event.description} </br>
@@ -324,8 +321,8 @@ class EventsShowPage {
     }
 
     renderAddResponse() {
+        this.showNav()
         return `
-        ${this.renderShowNav()}
         ${Response.renderResponseForm(this.event.id)}
         ${this.renderEventCard()}
         ${this.renderResponseList()}
@@ -333,8 +330,8 @@ class EventsShowPage {
     }
 
     renderShowPage() {
+        this.showNav()
         return `
-            ${this.renderShowNav()}
             ${this.renderEventCard()}
             ${this.renderResponseList()}
         `
