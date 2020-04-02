@@ -169,15 +169,15 @@ class Response {
         <form action="" class="createResponse" >
             <input type="hidden" id="event_id" value="${eventId}">
             <div>
-                <label>Your Name:</label>
-                <input type="text" name="respondent" id="respondent">
+                <label class="f6 b db mb2">Your Name:</label>
+                <input type="text" class="input-reset ba b--black-20 pa2 mb2 db w-25" name="respondent" id="respondent">
             </div>  
             <div>
-                <label>Your Message:</label>
-                <input type="text" name="content" id="content">
+                <label class="f6 b db mb2">Your Message:</label>
+                <input type="text" class="input-reset ba b--black-20 pa2 mb2 db w-25" name="content" id="content">
             </div>  
             <div>
-                <label>Attending? Check Box if Yes:</label>
+                <label class="f6 b db mb2">Attending? Check Box if Yes:</label>
                 <input type="checkbox" name="attending" id="attending">
             </div>  
                 <input type="submit" value="Create Response" class="createResponse">
@@ -226,24 +226,24 @@ class EventsPage {
     renderEventForm() {
         return ` <form action="" class="createEvent">
     <div>
-        <label>Title:</label>
-        <input type="text" name="title" id="title">
+        <label class="f6 b db mb2">Title:</label>
+        <input type="text" class="input-reset ba b--black-20 pa2 mb2 db w-25" name="title" id="title">
     </div>  
     <div>
-        <label>Description:</label>
-        <input type="text" name="description" id="description">
+        <label class="f6 b db mb2">Description:</label>
+        <input type="text" class="input-reset ba b--black-20 pa2 mb2 db w-25" name="description" id="description">
     </div>  
     <div>
-        <label>Service:</label>
-        <input type="text" name="service" id="service">
+        <label class="f6 b db mb2">Service:</label>
+        <input type="text" class="input-reset ba b--black-20 pa2 mb2 db w-25" name="service" id="service">
     </div>  
     <div>
-        <label>Date:</label>
-        <input type="text" name="date" id="date">
+        <label class="f6 b db mb2">Date:</label>
+        <input type="text" class="input-reset ba b--black-20 pa2 mb2 db w-25" name="date" id="date">
     </div>  
     <div>
-        <label>Time:</label>
-        <input type="text" name="time" id="time">
+        <label class="f6 b db mb2">Time:</label>
+        <input type="text" class="input-reset ba b--black-20 pa2 mb2 db w-25" name="time" id="time">
     </div>
     <input type="submit" value="Create Event" class="createEvent">
 </form>
