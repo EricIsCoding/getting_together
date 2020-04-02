@@ -135,7 +135,7 @@ class Event {
           Time: ${this.time} </br>
           </p>
         </div>
-        <p><a href="#/events/${this.id}" class="eventsShow ba1 pa2 bg-light-gray link" data-eventId="${this.id}">RSVP</a></p>
+        <p><a href="#/events/${this.id}" class="eventsShow f6 link dim br-pill ph3 pv2 mb2 dib white bg-black-90" data-eventId="${this.id}">RSVP</a></p>
       </article>
       `
     }
@@ -180,7 +180,7 @@ class Response {
                 <legend class="fw7 mb2">Attending? Check Box if Yes:</legend>
                 <input type="checkbox" class="mr2" name="attending" id="attending">
             </div>  
-                <input type="submit" value="Create Response" class="createResponse">
+                <input type="submit" value="Create Response" class="createResponse f6 dim br-pill ph3 pv2 mb2 dib white bg-black-90">
         </form>
         `
     }
@@ -245,7 +245,7 @@ class EventsPage {
         <label class="f6 b db mb2">Time:</label>
         <input type="text" class="input-reset ba b--black-20 pa2 mb2 db w-25" name="time" id="time">
     </div>
-    <input type="submit" value="Create Event" class="createEvent">
+    <input type="submit" value="Create Event" class="createEvent f6 dim br-pill ph3 pv2 mb2 dib white bg-black-90">
 </form>
         `
     }
