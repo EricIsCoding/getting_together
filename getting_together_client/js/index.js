@@ -177,8 +177,8 @@ class Response {
                 <input type="text" class="input-reset ba b--black-20 pa2 mb2 db w-25" name="content" id="content">
             </div>  
             <div>
-                <label class="f6 b db mb2">Attending? Check Box if Yes:</label>
-                <input type="checkbox" name="attending" id="attending">
+                <legend class="fw7 mb2">Attending? Check Box if Yes:</legend>
+                <input type="checkbox" class="mr2" name="attending" id="attending">
             </div>  
                 <input type="submit" value="Create Response" class="createResponse">
         </form>
