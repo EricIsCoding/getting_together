@@ -8,13 +8,16 @@
 require 'faker'
 require 'securerandom'
 
+Event.destroy_all
+Response.destroy_all
+
 events = []
 
 10.times do
     event = Event.create(
         title: Faker::Lorem.word, 
         description: Faker::Lorem.paragraph, 
-        service: Faker::App.name, 
+        service: ['Zoom', "Google Meet", "Discord", "TableTopia", "NetflixTogether"].sample, 
         date: Faker::Date.between(from: Date.today , to: 2.days.from_now), 
         time: Faker::Number.number(digits: 4)
     );
