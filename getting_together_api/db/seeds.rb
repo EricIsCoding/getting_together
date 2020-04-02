@@ -32,3 +32,12 @@ end
         event: events.sample
     )
 end
+
+10.times do
+    Response.create(
+        respondent: Faker::Name.name, 
+        content: Faker::Lorem.paragraph, 
+        attending: [true, false].sample, 
+        event: events.first
+    )
+end

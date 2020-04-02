@@ -197,7 +197,7 @@ class Response {
     renderRespCard() {
         let attending = this['attending']
         return `
-        <div class="fl w-50 w-25-m w-20-l pa2">
+        <article class="fl w-100 w-50-m  w-25-ns pa2-ns">
           <article class="db mw5 center bg-light-gray br3 pa3 pa4-ns mv3 ba b--black-10">
             <div class="tc">
                 <h1 class="f4">${this.respondent}</h1>
@@ -209,7 +209,7 @@ class Response {
             ${this.content}
             </p>
           </article>  
-        </div>
+        </article>
         `
     }
 }
@@ -263,7 +263,6 @@ class EventsPage {
     }
 
     renderFormPage() {
-        this.indexNav()
         return `
         ${this.renderEventForm()}
         ${this.renderCards()}
@@ -288,11 +287,9 @@ class EventsShowPage {
             return resp.renderRespCard()
         }).join(" ")
         return `
-        <article>
-            <div class="cf pa2">
+            <section class="cf w-100 pa2-ns">
                 ${list}
-            </div>
-        </article>
+            </section>
         `
     }
 
@@ -321,7 +318,6 @@ class EventsShowPage {
     }
 
     renderAddResponse() {
-        this.showNav()
         return `
         ${Response.renderResponseForm(this.event.id)}
         ${this.renderEventCard()}
