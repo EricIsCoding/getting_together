@@ -1,4 +1,4 @@
-# Project Title
+# Getting Together
 
 This is a portflio project for FlatironSchool. An App built using ruby and Vanilla JS. 
 
